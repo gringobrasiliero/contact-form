@@ -11,6 +11,11 @@ class ContactsController < ApplicationController
       json_response(@contact)
   end
 
+  def show
+    @contact = Contact.find(params[:id])
+    json_response(@contact)
+  end
+
 
 private
 

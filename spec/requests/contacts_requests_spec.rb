@@ -45,8 +45,12 @@ end
 end
 
 RSpec.describe 'viewing one contact', type: :request do
+  let!(:contacts) { create_list(:contact, 10) }
+  let(:contact_id) { contacts.first.id }
+  let(:created_at) {Time.now}
 
   context 'GET contacts/1' do
+
     before {get '/contacts/1'}
 
     it 'returns status code 200' do
@@ -58,8 +62,8 @@ RSpec.describe 'viewing one contact', type: :request do
   context "When contact does not exist" do
     before {get '/contacts/0'}
 
-    it 'returns status code of 422' do
-      expect(response).to have_http_status(422)
+    it 'returns status code of 404' do
+      expect(response).to have_http_status(404)
     end
   end
 
