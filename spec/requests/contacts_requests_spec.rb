@@ -31,7 +31,7 @@ RSpec.describe 'creating contacts', type: :request do
 
   context 'when request attrs are valid' do
     before {post '/contacts', params: valid_attributes}
-      it 'returns status code 201' do
+      it 'returns status code 200' do
         expect(response).to have_http_status(200)
       end
   end
@@ -42,5 +42,25 @@ context 'when an invalid request' do
     expect(response).to have_http_status(422)
   end
 end
+end
+
+RSpec.describe 'viewing one contact', type: :request do
+
+  context 'GET contacts/1' do
+    before {get '/contacts/1'}
+
+    it 'returns status code 200' do
+      expect(response).to have_http_status(200)
+    end
+
+  end
+
+  context "When contact does not exist" do
+    before {get '/contacts/0'}
+
+    it 'returns status code of 422' do
+      expect(response).to have_http_status(422)
+    end
+  end
 
 end
