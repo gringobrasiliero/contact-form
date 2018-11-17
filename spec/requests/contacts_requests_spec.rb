@@ -70,19 +70,20 @@ RSpec.describe 'viewing one contact', type: :request do
 end
 
 RSpec.describe 'PUT /contacts/:contact_id/', type: :request do
+  let!(:contact) {create(:contact)}
   let(:valid_attributes) { {first_name: 'Homer'} }
   contact_id = 1
 
   before { put "/contacts/#{contact_id}", params: valid_attributes}
 
   context 'when contact exists' do
-    it 'returns status code 204' do
-      expect(response).to have_http_status(204)
+    it 'returns status code 200' do
+      expect(response).to have_http_status(200)
   end
 
   it 'updates the contact' do
-    updated_contact = Contact.find(id)
-    expect(updated_contact.post).to match(/Homer/)
+    updated_contact = Contact.find(contact_id)
+    expect(updated_contact.first_name).to match(/Homer/)
   end
 
 end

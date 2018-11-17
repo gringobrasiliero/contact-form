@@ -16,7 +16,10 @@ class ContactsController < ApplicationController
     json_response(@contact)
   end
 
-
+def update
+  @contact = Contact.update(contact_params)
+  json_response(@contact)
+end
 private
 
   def contact_params
