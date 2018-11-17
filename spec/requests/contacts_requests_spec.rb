@@ -27,17 +27,17 @@ end
 
 
 RSpec.describe 'creating contacts', type: :request do
-  let(:valid_attributes) { {first_name: 'Woody', last_name: 'Cowboy', phone_number: '1234567891', created_at: Time.now} }
+  let(:valid_attributes) { {first_name: 'Woody', last_name: 'Cowboy', phone_number: '1234567891', email: 'woody@gmail.com', created_at: Time.now} }
 
   context 'when request attrs are valid' do
     before {post '/contacts', params: valid_attributes}
       it 'returns status code 201' do
-        expect(response).to have_http_status(201)
+        expect(response).to have_http_status(200)
       end
   end
 
 context 'when an invalid request' do
-  before {contact '/contacts', params: {} }
+  before {post '/contacts', params: {} }
   it 'returns status code of 422' do
     expect(response).to have_http_status(422)
   end
