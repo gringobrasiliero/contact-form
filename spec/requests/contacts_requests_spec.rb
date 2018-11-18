@@ -46,7 +46,7 @@ end
 
 RSpec.describe 'viewing one contact', type: :request do
   let!(:contacts) { create_list(:contact, 10) }
-  let(:contact_id) { contacts.first.id }
+  let(:contact_id) { Contact.first.id }
   let(:created_at) {Time.now}
 
   context 'GET contacts/1' do
@@ -86,6 +86,22 @@ RSpec.describe 'PUT /contacts/:contact_id/', type: :request do
     expect(updated_contact.first_name).to match(/Homer/)
   end
 
+end
+
+end
+
+
+RSpec.describe 'DELETE /contacts/:id' do
+  let!(:contacts) { create_list(:contact, 2) }
+  let(:contact_id) { Contact.first.id }
+  before {delete "/contacts/#{contact_id}"}
+
+  it 'returns status code of 200' do
+    expect(response).to have_http_status(204)
+  end
+
+it 'deletes the contact' do
+  expect(Contact.first.id).to eql(2)
 end
 
 end
