@@ -20,6 +20,11 @@ def update
   @contact = Contact.update(contact_params)
   json_response(@contact)
 end
+
+def destroy
+  @contact = Contact.find(params[:id])
+  @contact.destroy
+end
 private
 
   def contact_params
